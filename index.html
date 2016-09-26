@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<div class="row" style="margin-top: 40px;">
-			<textarea class="col-md-offset-2 col-md-8" rows="20" id="text"></textarea>
+			<textarea class="col-md-offset-2 col-md-8" rows="20" id="result"></textarea>
 		</div>
 	</div>
 
@@ -32,18 +32,33 @@
 	<script type="text/javascript">
 		$("#language").bootstrapSwitch();
 		$("#status").bootstrapSwitch();
+
+		var newRecognition = webkitSpeechRecognition();
+		recognition.interimResults = false;
+		
 		$("#language").on("switchChange.bootstrapSwitch", function(event, state){
 			// console.log(this);
 			// console.log(event);
 			// console.log(state);
 			if ($("#status").bootstrapSwitch('state')){
-				$("#status").bootstrapSwitch('toggle');
+				$("#status").bootstrapSwitch('toggleState');
 			}
 		});
 		$("#status").on("switchChange.bootstrapSwitch", function(event, state){
-			console.log(this);
-			console.log(event);
-			console.log(state);
+			// console.log(this);
+			// console.log(event);
+			// console.log(state);
+			// console.log('fuck');
+			if (state){
+				if ($("#language").bootstrapSwitch('state')){
+					newRecognition.lang = 'zh-ch';
+				} else {
+					newRecognition.lang = 'en-US';
+				}
+				newRecognition.start();
+			} else {
+				newRecognition.stop();
+			}
 		});
 	</script>
 </body>
