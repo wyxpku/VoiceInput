@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Test</title>
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-switch.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="row" style="margin-top: 40px;">
+			<div class="col-md-offset-2">
+				<label style="font-size: 18px;">语言/Language: &nbsp;</label>
+				<input type="checkbox" id="language" data-on-text="中" data-off-text="En" data-size="large" checked>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-offset-2">
+				<label style="font-size: 18px">开关/Controller: &nbsp;</label>
+				<input type="checkbox" id="status" data-on-text="Start" data-off-text="End" data-size="large" unchecked>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 40px;">
+			<textarea class="col-md-offset-2 col-md-8" rows="20" id="text"></textarea>
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script type="js/bootstrap.js"></script>
+	<script src="js/bootstrap-switch.js"></script>
+
+	<script type="text/javascript">
+		$("#language").bootstrapSwitch();
+		$("#status").bootstrapSwitch();
+		$("#language").on("switchChange.bootstrapSwitch", function(event, state){
+			// console.log(this);
+			// console.log(event);
+			// console.log(state);
+			if ($("#status").bootstrapSwitch('state')){
+				$("#status").bootstrapSwitch('toggle');
+			}
+		});
+		$("#status").on("switchChange.bootstrapSwitch", function(event, state){
+			console.log(this);
+			console.log(event);
+			console.log(state);
+		});
+	</script>
+</body>
+</html>
