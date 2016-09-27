@@ -33,8 +33,13 @@
 		$("#language").bootstrapSwitch();
 		$("#status").bootstrapSwitch();
 
-		var newRecognition = webkitSpeechRecognition();
-		recognition.interimResults = false;
+		var newRecognition = new webkitSpeechRecognition();
+		// newRecognition.interimResults = false;
+
+		newRecognition.onresult = function(event){
+			var color = event.results[0][0].transcript;
+			alert(color);
+		}
 		
 		$("#language").on("switchChange.bootstrapSwitch", function(event, state){
 			// console.log(this);
