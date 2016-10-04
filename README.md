@@ -1,7 +1,14 @@
 # VoiceInput
 
-Baidu Key:
+##项目结构
+--VoiceInput
+  |-- Data #存放语音文件
+  |-- VoiceInput.exe #可执行程序
+  |-- VoiceInput.ui #界面
 
-	App ID: 8671800
-	API Key: SeCwUoVFgDLjIr7aQkWcOmiM
-	Secret Key: aae1745ad69f65c32fcb4d5ef2c56d04
+##使用说明
+直接运行VoiceInput.exe即可
+
+###注意事项
+1. 运行过程中无法更换语言
+2. 每次更换语言，需要重新点击start按钮（如处于运行中，需先stop）
