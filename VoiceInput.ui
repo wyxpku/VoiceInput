@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QRadioButton" name="zh_radio">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -31,6 +34,9 @@
     </property>
    </widget>
    <widget class="QRadioButton" name="en_radio">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -44,6 +50,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="start_btn">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -63,6 +72,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="end_btn">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -76,6 +88,9 @@
     </property>
    </widget>
    <widget class="QTextEdit" name="result">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>30</x>
