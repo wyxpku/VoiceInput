@@ -10,11 +10,16 @@ class Voice2Text(object):
 		self.rate = 8000
 		self.channel = 1
 		self.cuid = "wyx"
-		self.token = '24.ec8afa69e6ba61bc547478258bacaba3.2592000.1478106702.282335-8671800'
+		# self.token = '24.ec8afa69e6ba61bc547478258bacaba3.2592000.1478106702.282335-8671800'
+		tokenfile = open('token.txt', 'r')
+		self.token = tokenfile.readline()
+		tokenfile.close
+
 		self.url = 'http://vop.baidu.com/server_api/?cuid=wyx&token=' + self.token
 		
 
 	def translate(self, filename, lan):
+		print "Dealling with new file:", filename, ", Language is", lan
 		f = open(filename,'rb')
 		# speech = base64.b64encode(f.read())
 		speech = f.read()

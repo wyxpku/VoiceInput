@@ -22,6 +22,7 @@ class Record():
         wf.setframerate(self.RATE)
         wf.writeframes("".join(data))
         wf.close()
+        print "Record new file:", filename
 
     def record(self):
         # save_count = 0

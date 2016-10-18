@@ -1,9 +1,11 @@
 import sys
 from PyQt4 import QtCore, QtGui, uic
+# from PyQt4.QtGui import QFileDialog, QDialog
 
 from record import Record
 from Voice2Text import Voice2Text
 import time
+from datetime import datetime
 
 qtCreatorFile = "VoiceInput.ui"
 
@@ -18,8 +20,12 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		self.lan = 'zh'
 		
 		self.setupUi(self)
+
 		self.start_btn.clicked.connect(self.start)
 		self.end_btn.clicked.connect(self.end)
+
+		self.save_df.clicked.connect(self.save_default)
+		self.save_my.clicked.connect(self.save_customize)
 		
 		self.recorder = recordWorker()
 		self.translator = transWorker()
@@ -38,12 +44,14 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 
 		self.recorder.start()
 		self.translator.start()
-		# print "started!"
+
+		print "started!"
 		# self.result.append('start\n')
 	def end(self):
 		# self.result.append('end\n')
 		self.emit(QtCore.SIGNAL('end()'))
 		# self.recorder.wait()
+		print "Stopped!"
 		return
 
 	def newfile(self, filename):
@@ -52,6 +60,31 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 
 	def addcontent(self, cont):
 		self.result.append(cont)
+
+	def save_default(self):
+		filename = datetime.now().strftime("%Y-%m-%d_%H_%M_%S") + ".txt"
+		file = open(filename, 'w')
+		content = self.result.toPlainText().toUtf8()
+		# print content
+		file.write(content)
+		file.close()
+		self.result.clear()
+		print "Save results to file %s and clear the text-box" % (filename)
+		return
+
+	def save_customize(self):
+		content = self.result.toPlainText().toUtf8()
+		filename = QtGui.QFileDialog.getSaveFileName(self, 'Save to', '.', "txt files(*.txt)")
+		# print filename
+		if filename != '':
+			file = open(filename, 'w')
+			file.write(content)
+			file.close()
+			self.result.clear()
+			print "Save results to file %s and clear the text-box" % (filename)
+		else:
+			print "Haven't chose a file, failed to save."
+		return
 
 class recordWorker(QtCore.QThread):
 	def __init__(self):
@@ -83,15 +116,16 @@ class transWorker(QtCore.QThread):
 	# def run(self):
 	
 	def translate(self, mystr):
-		print mystr
+		# print mystr
 		ary = str(mystr).split('|')
 		ret = self.voice2Text.translate(ary[0], ary[1])
-		print ret
+		# print ret
 		if ret['err_no'] == 0:
 			self.emit(QtCore.SIGNAL('addcontent(QString)'), ret['result'][0])
+			print "Translation Result:", ret['result'][0]
 		else:
-			self.emit(QtCore.SIGNAL('addcontent(QString)'), ret['err_msg'])
-
+			# self.emit(QtCore.SIGNAL('addcontent(QString)'), ret['err_msg'])
+			print "Translation Error:", ret['err_msg']
 		return
 
 if __name__ == '__main__':
